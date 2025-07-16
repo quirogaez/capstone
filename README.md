@@ -1,55 +1,98 @@
-<!-- badges -->
+<!-- Badges -->
 [![Build Status](https://img.shields.io/github/actions/workflow/status/quirogaez/capstone/ci.yml?branch=main)](https://github.com/quirogaez/capstone/actions)
 [![DVC Status](https://img.shields.io/badge/DVC-enabled-brightgreen)](https://dvc.org)
 [![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)]()
 
-# 🩺 Detección y Clasificación Inteligente de Neumonía por Radiografía
+# 🧠 Capstone Project – Detección Inteligente de Neumonía en Radiografías de Tórax
 
-> **Capstone Project** – Propuesta SIC 2024  
-> *“Aplicando CNNs -- - para transformar el diagnóstico de neumonía”*
-
----
-
-## 📖 Descripción
-
-En este Capstone abordamos un desafío de salud pública: **detectar y clasificar neumonía** en radiografías de tórax usando Redes Neuronales Convolucionales (ESPECIFICAR). Partiendo del dataset real de Kaggle <https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia/data>, implementamos desde un modelo **baseline** hasta arquitecturas avanzadas (ResNet, DenseNet, --).
+> **Propuesta SIC 2024**  
+> *“Aplicando CNNs preentrenadas y generación adversarial para asistir el diagnóstico médico”*
 
 ---
 
-## 🚀 Características principales
+## 🩺 Descripción general
 
-- **Experimentación guiada** en Colab  
-- **Modelos**:
-- **Manejo de clases desbalanceadas**: class‐weighting, data augmentation  
-- **Evaluación rigurosa**: precisión, recall, F1, AUC‐ROC, matriz de confusión  
-- **Análisis de falsos positivos/negativos** 
+Este proyecto presenta el diseño e implementación de un sistema de inteligencia artificial para detectar **automáticamente la neumonía** en imágenes de rayos X pediátricos.  
 
----
+El sistema emplea **redes neuronales convolucionales (CNN)** con aprendizaje por transferencia, procesamiento avanzado de imágenes y técnicas como **DCGANs** para abordar el desbalance de clases. También se exploran métodos inspirados en [este artículo de ArXiv (2024)](https://arxiv.org/html/2410.15437v1) para mejorar la clasificación multicategoría.
 
-## 📂 Estructura del repositorio
-
-| Carpeta / Archivo          | Descripción                                                                                     |
-|----------------------------|-------------------------------------------------------------------------------------------------|
-| `data/raw/`                | Radiografías originales (train/ val/ test)                                                      |
-| `data/processed/`          | Imágenes preprocesadas y aumentadas                                                             |
-| `notebooks/`               | • `01_EDA.ipynb`   – Análisis exploratorio<br>• |
-| `src/`                     | Código modular:<br>• `data/` (descarga, preprocessing)<br>• `models/` (definición, fine‐tune)<br>• `evaluation/` (métricas, visualización)<br>• `utils/` (helpers) |
-| `experiments/`             | Configuraciones y logs de cada experimento (YAML)                                               |
-| `models/`                  | Pesos y artefactos entrenados ( SavedModel)                                    |
-| `logs/`                    | Registros                                                                        |
-| `reports/`                 | • ` s` – Informe completo<br>• `slides/` – Presentación                                         |
-| `configs/`                 | Parámetros globales y específicos de ambiente                                                    |
-| `tests/`                   | Pruebas unitarias para scripts y modelos                                                        |
-| `.github/workflows/ci.yml` | CI: lint, tests, validación de notebooks                                                        |
-| `dvc.yaml`, `.dvc/`        | Pipeline DVC para datos y modelos                                                                |
-| `README.md`                | Este archivo                                                                                   |
-| `requirements.txt`         | Dependencias Python                                                                             |
+🔍 **Objetivo general**: Construir un modelo de inteligencia artificial mediante una red neuronal convolucional (CNN) pre entrenada para detectar y localizar las zonas afectadas por la presencia de neumonía a partir de radiografías de tórax.
 
 ---
 
-## ⚙️ Instalación
+## ⚙️ Características clave
 
-1. **Clona el repositorio**  
-   ```bash
-   git clone https://github.com/quirogaez/capstone.git
-   cd capstone
+- 📁 Preprocesamiento avanzado: CLAHE, normalización, segmentación pulmonar
+- 🧬 Modelado con transferencia de aprendizaje: **ResNet50** ...
+- 🔄 Generación de datos con **DCGAN** para clases minoritarias
+- 📊 Evaluación completa: métricas, matriz de confusión, ...
+- 📚 Estructura modular para entrenamiento, evaluación y experimentación reproducible
+
+---
+
+## 🗂️ Estructura del repositorio
+
+| Ruta                        | Descripción                                                                                   |
+|----------------------------|-----------------------------------------------------------------------------------------------|
+| `notebooks/`               | Notebooks principales (EDA, entrenamiento, evaluación, GANs)                                 |
+| `data/raw/`                | Radiografías originales del dataset de Kaggle                                                 |
+| `data/processed/`          | Imágenes segmentadas, normalizadas y aumentadas                                              |
+| `src/data/`                | Scripts de carga, segmentación y transformación                                               |
+| `src/models/`              | Definición de modelos CNN, fine-tuning                                                        |
+| `src/evaluation/`          | Funciones de métricas, gráficos y análisis                                                    |
+| `experiments/`             | Configs de entrenamiento (YAML) y logs                                                        |
+| `models/`                  | Pesos y artefactos generados por los modelos entrenados                                       |
+| `logs/`                    | Logs generados por DVC y ejecución del pipeline                                               |
+| `reports/`                 | Informes y presentaciones técnicas                                                            |
+| `tests/`                   | Pruebas unitarias de componentes                                                              |
+| `.github/workflows/`       | Pipeline de CI con validación automática                                                      |
+| `dvc.yaml` / `.dvc/`       | Pipeline de datos y modelos con [DVC](https://dvc.org)                                         |
+| `requirements.txt`         | Dependencias del entorno                                                                      |
+| `README.md`                | Este archivo                                                                                  |
+
+---
+
+## 🔬 Flujo de trabajo
+
+1. **EDA & Preprocesamiento**  
+   Exploración de imágenes, análisis de clase y aplicación de CLAHE, segmentación por Sobel y resize a 224×224.
+
+2. **Generación de datos sintéticos (DCGAN)**  
+   Entrenamiento de un generador para sintetizar imágenes de clases subrepresentadas (especialmente clase "Normal").
+
+3. **Entrenamiento del modelo**  
+   Fine-tuning de **ResNet50**, usando `class_weights` y datos balanceados con GAN. Evaluación con validación cruzada.
+
+4. **Evaluación**  
+   - Métricas por clase: Precision, Recall, F1  
+   - Matriz de confusión  
+
+---
+
+## 📊 Resultados preliminares
+
+| Clase         | Precision | Recall | F1-score |
+|---------------|-----------|--------|----------|
+| Neumonía Viral     | ...      | ...   | ...     |
+| Neumonía Bacteriana| ...      | ...   | ...     |
+| Normal        | ...      | ...   | ...    |
+
+> 🔍 Mejor desempeño se obtuvo con imágenes aumentadas + DCGAN + transferencia de ResNet...
+
+---
+
+## 📌 Dataset
+
+- Fuente: [Chest X-ray Pneumonia Dataset – Kaggle](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia/data)  
+- Tipo: Radiografías pediátricas clasificadas en **Normal**, **Neumonía Viral**, **Neumonía Bacteriana**
+
+---
+
+## 📦 Instalación
+
+```bash
+git clone https://github.com/quirogaez/capstone.git
+cd capstone
+pip install -r requirements.txt
+
+
