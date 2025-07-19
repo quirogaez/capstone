@@ -12,11 +12,15 @@
 
 ## 🩺 Descripción general
 
-Este proyecto presenta el diseño e implementación de un sistema de inteligencia artificial para detectar **automáticamente la neumonía** en imágenes de rayos X pediátricos.  
+Este proyecto desarrolla un sistema de inteligencia artificial para la detección automatizada de neumonía en radiografías de tórax pediátricas. El enfoque combina redes neuronales convolucionales (CNN) preentrenadas con técnicas avanzadas de procesamiento de imágenes y generación de datos sintéticos.
 
-El sistema emplea **redes neuronales convolucionales (CNN)** con aprendizaje por transferencia, procesamiento avanzado de imágenes y técnicas como **DCGANs** para abordar el desbalance de clases. También se exploran métodos inspirados en [este artículo de ArXiv (2024)](https://arxiv.org/html/2410.15437v1) para mejorar la clasificación multicategoría.
+Se implementa un modelo basado en **VGG16 con fine-tuning**, acompañado del uso de **DCGANs** para mitigar el desbalance entre clases, mejorando así la capacidad de generalización del sistema. Adicionalmente, se integran visualizaciones **Grad-CAM** para aportar interpretabilidad clínica al modelo, facilitando su posible adopción en contextos reales.
 
-🔍 **Objetivo general**: Construir un modelo de inteligencia artificial mediante una red neuronal convolucional (CNN) pre entrenada para detectar y localizar las zonas afectadas por la presencia de neumonía a partir de radiografías de tórax.
+El proyecto también se inspira en propuestas recientes de clasificación multiclase aplicadas a imágenes médicas, como las presentadas en trabajos recientes disponibles en [**El artículo**](https://www.mdpi.com/2073-8994/12/4/651), lo cual refuerza su enfoque basado en el estado del arte.
+
+### 🔍 Objetivo general
+
+Construir un modelo de inteligencia artificial mediante una red neuronal convolucional (CNN) preentrenada que permita clasificar imágenes de tórax en tres categorías clínicas (neumonía bacteriana, neumonía viral y casos normales) y resaltar las zonas anatómicas más relevantes para cada predicción, con el fin de apoyar el diagnóstico médico de forma precisa e interpretable.
 
 ---
 
