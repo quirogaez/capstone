@@ -16,7 +16,7 @@ Este proyecto desarrolla un sistema de inteligencia artificial para la detecció
 
 Se implementa un modelo basado en **VGG16 con fine-tuning**, acompañado del uso de **DCGANs** para mitigar el desbalance entre clases, mejorando así la capacidad de generalización del sistema. Adicionalmente, se integran visualizaciones **Grad-CAM** para aportar interpretabilidad clínica al modelo, facilitando su posible adopción en contextos reales.
 
-El proyecto también se inspira en propuestas recientes de clasificación multiclase aplicadas a imágenes médicas, como las presentadas en trabajos recientes disponibles en [**El artículo**](https://www.mdpi.com/2073-8994/12/4/651), lo cual refuerza su enfoque basado en el estado del arte.
+El proyecto también se inspira en propuestas recientes de clasificación multiclase aplicadas a imágenes médicas, como las presentadas en trabajos recientes disponibles en [**MDPI**](https://www.mdpi.com/2073-8994/12/4/651), lo cual refuerza su enfoque basado en el estado del arte.
 
 ### 🔍 Objetivo general
 
