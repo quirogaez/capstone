@@ -20,13 +20,13 @@ El sistema emplea **redes neuronales convolucionales (CNN)** con aprendizaje por
 
 ---
 
-## ⚙️ Características clave
+## ⚙️ Características Clave del Modelo
 
-- 📁 Preprocesamiento avanzado: CLAHE, normalización, segmentación pulmonar
-- 🧬 Modelado con transferencia de aprendizaje: **ResNet50** ...
-- 🔄 Generación de datos con **DCGAN** para clases minoritarias
-- 📊 Evaluación completa: métricas, matriz de confusión, ...
-- 📚 Estructura modular para entrenamiento, evaluación y experimentación reproducible
+- ✅ Clasificación multiclase: Neumonía bacteriana, neumonía viral y casos normales.
+- 🧠 Arquitectura final: **VGG16** con pesos preentrenados y cabeza personalizada.
+- 🔄 Balanceo de clases con **GANs**, logrando uniformidad de clases y mejor generalización.
+- 🔍 **Grad-CAM** como herramienta de interpretabilidad visual, aplicada a predicciones clínicas.
+- 📊 Resultados sólidos: Accuracy del 87.18% y F1-scores > 80% en todas las clases.
 
 ---
 
@@ -52,32 +52,44 @@ El sistema emplea **redes neuronales convolucionales (CNN)** con aprendizaje por
 
 ---
 
-## 🔬 Flujo de trabajo
+## 🔁 Flujo de Trabajo del Proyecto
 
-1. **EDA & Preprocesamiento**  
-   Exploración de imágenes, análisis de clase y aplicación de CLAHE, segmentación por Sobel y resize a 224×224.
-
-2. **Generación de datos sintéticos (DCGAN)**  
-   Entrenamiento de un generador para sintetizar imágenes de clases subrepresentadas (especialmente clase "Normal").
-
-3. **Entrenamiento del modelo**  
-   Fine-tuning de **ResNet50**, usando `class_weights` y datos balanceados con GAN. Evaluación con validación cruzada.
-
-4. **Evaluación**  
-   - Métricas por clase: Precision, Recall, F1  
-   - Matriz de confusión  
+1. **Carga y exploración de datos**: Se importan imágenes del dataset Chest X-ray (Pneumonia) y se realiza inspección visual, verificación de integridad y preprocesamiento.
+2. **Preprocesamiento**: Redimensionamiento a 224x224, normalización, y estructuración del conjunto en carpetas `train/`, `val/`, y `test/`.
+3. **Balanceo de clases**:
+   - Se implementaron técnicas de **undersampling** y **data augmentation** inicialmente.
+   - En el enfoque final, se entrenó un modelo **DCGAN** para generar imágenes sintéticas de clases minoritarias y lograr equilibrio (2530 imágenes por clase).
+4. **Entrenamiento del modelo**:
+   - Se utilizó **VGG16 preentrenado** sobre ImageNet.
+   - Entrenamiento en dos fases: congelamiento de capas base + fine-tuning.
+5. **Evaluación**:
+   - Se utilizó accuracy, precision, recall y F1-score, tanto global como por clase.
+   - Se generó una matriz de confusión para analizar errores.
+6. **Interpretabilidad con Grad-CAM**:
+   - Se aplicó Grad-CAM para resaltar regiones pulmonares relevantes.
+   - Las visualizaciones se superpusieron sobre la imagen original para facilitar su interpretación clínica. 
 
 ---
 
-## 📊 Resultados preliminares
+## 📊 Resultados Finales
 
-| Clase         | Precision | Recall | F1-score |
-|---------------|-----------|--------|----------|
-| Neumonía Viral     | ...      | ...   | ...     |
-| Neumonía Bacteriana| ...      | ...   | ...     |
-| Normal        | ...      | ...   | ...    |
+| Clase               | Precision | Recall | F1-Score |
+|--------------------|-----------|--------|----------|
+| Normal             | 94.90%    | 79.49% | 86.51%   |
+| Neumonía Bacteriana| 87.31%    | 96.69% | 91.76%   |
+| Neumonía Viral     | 77.50%    | 83.78% | 80.52%   |
+| **Promedio Macro** | 86.57%    | 86.66% | 82.27%   |
+| **Accuracy total** |           |        | **87.18%** |
 
-> 🔍 Mejor desempeño se obtuvo con imágenes aumentadas + DCGAN + transferencia de ResNet...
+---
+
+## 🖼️ Visualizaciones con Grad-CAM
+
+| Clase               | Imagen |
+|--------------------|--------|
+| Neumonía Bacteriana| ![](gradcam/gradcam_bacterial.jpg) |
+| Neumonía Viral     | ![](gradcam/gradcam_viral.jpg) |
+| Normal             | ![](gradcam/gradcam.png) |
 
 ---
 
