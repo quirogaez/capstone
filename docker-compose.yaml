@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  tf-gpu:
+    image: tensorflow/tensorflow:2.12.0-gpu
+    container_name: tf-gpu-test
+    runtime: nvidia
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    ports:
+      - "8888:8888"
+    entrypoint: []
+    command: >-
+      bash -c "
+        pip install --quiet --no-cache-dir jupyterlab &&
+        jupyter lab --ip=0.0.0.0 --port=8888 --allow-root --LabApp.token=''
+      "
+    stdin_open: true
+    tty: true
+
+    # Límite de CPU: 70% de 20 CPUs = 14
+    cpus: 14
