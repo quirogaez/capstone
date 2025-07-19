@@ -103,12 +103,49 @@ Construir un modelo de inteligencia artificial mediante una red neuronal convolu
 - Tipo: Radiografías pediátricas clasificadas en **Normal**, **Neumonía Viral**, **Neumonía Bacteriana**
 
 ---
+## 📦 Instalación rápida
 
-## 📦 Instalación
+<details>
+<summary>🖥️ Opción A — Instalación local (CPU / GPU)</summary>
 
 ```bash
+# 1) Clonar el repositorio
 git clone https://github.com/quirogaez/capstone.git
 cd capstone
+
+# 2) Crear entorno virtual (opcional)
+python -m venv .venv && source .venv/bin/activate
+
+# 3) Instalar dependencias
 pip install -r requirements.txt
+```
+
+</details>
+
+<details>
+<summary>🚀 Opción B — Docker Compose + GPU (recomendado)</summary>
+
+**Requisitos previos**
+
+- Docker ≥ 24 (con `docker compose`)
+- Driver NVIDIA ≥ 535
+- `nvidia‑container‑toolkit` instalado ✅
+- GPU compatible con **CUDA 11.8 / cuDNN 8.6** (imagen `tensorflow/tensorflow:2.12.0-gpu`)
+
+```bash
+# Iniciar contenedor con JupyterLab y aceleración GPU
+docker compose up -d tf-gpu
+```
+
+Abre tu navegador en <http://localhost:8888> para acceder a **JupyterLab**.
+
+> El proyecto se monta en `/workspace` y el contenedor se limita a **14 CPUs** para no monopolizar recursos.
+
+⚠️ Si tu GPU necesita otra combinación de CUDA/cuDNN (p. ej. RTX 40 Series con CUDA 12), cambia la imagen a `tensorflow/tensorflow:2.16.1-gpu` y ajusta versiones en `requirements.txt`.
+
+</details>
+
+
+
 
 
